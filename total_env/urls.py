@@ -24,11 +24,19 @@
 from django.contrib import admin
 from django.urls import path, include
 
+from total_env.views import HomeView
+
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 
+    # blog app example code
+    path('', HomeView.as_view(), name='home'),
+    path('blog/', include('blog.urls')),
+    # path('api/', include('api.urls')),
+
+    # api app: 이전 api의 기능들을 동일하게 동작하되 DRF로 만든 API
     path('api/', include('api.urls')),
 ]
