@@ -1,14 +1,13 @@
-from django.urls import path, include
-from rest_framework import routers
+from django.urls import path
 
-from api.views import UserViewSet
+from api import views
 
-# Routers provide an easy way of automatically determining the URL conf.
-router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
 
-# Wire up our API using automatic URL routing.
-# Additionally, we include login URLs for the browsable API.
+app_name = 'api'
 urlpatterns = [
-    path('', include(router.urls)),
+    path('post/list/', views.ApiPostLV.as_view(), name='post_list'),
+    path('post/<int:pk>/', views.ApiPostDV.as_view(), name='post_detail'),
+    path('catetag/', views.ApiCateTagView.as_view(), name='catetag_list'),
+    path('like/<int:pk>/', views.ApiPostLikeDV.as_view(), name='post_like'),
+    path('comment/create/', views.ApiCommentCV.as_view(), name='comment_create'),
 ]

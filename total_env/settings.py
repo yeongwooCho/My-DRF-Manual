@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+
+import api2.apps
 from my_settings import SECRET_KEY
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -35,6 +37,7 @@ INSTALLED_APPS = [
     # my app
     'api.apps.ApiConfig',
     'blog.apps.BlogConfig',
+    'api2.apps.Api2Config',
 
     # third party package
     'rest_framework',
