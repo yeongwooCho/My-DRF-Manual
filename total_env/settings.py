@@ -34,7 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # my app
     'api.apps.ApiConfig',
-    'blog.apps.BlogConfig'
+    'blog.apps.BlogConfig',
 
     # third party package
     'rest_framework',
