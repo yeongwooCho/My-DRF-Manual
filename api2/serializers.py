@@ -24,6 +24,12 @@ class PostRetrieveSerializer(serializers.ModelSerializer):
         exclude = ['create_dt']  # create_dt 이외의 모든 필드
 
 
+class PostLikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ['like', ]
+
+
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment

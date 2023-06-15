@@ -22,6 +22,9 @@ urlpatterns = [
     # posts
     path('posts/', views.PostListAPIView.as_view(), name='post-list'),
     path('posts/<int:pk>/', views.PostRetrieveAPIView.as_view(), name='post-detail'),
+    # like
+    # path('posts/<int:pk>/like/', views.PostLikeUpdateAPIView.as_view(), name='post-detail'),
+    path('posts/<int:pk>/like/', views.PostLikeAPIView.as_view(), name='post-like'),
 
     # comments
     path('comments/', views.CommentCreateAPIView.as_view(), name='comments-list'),
