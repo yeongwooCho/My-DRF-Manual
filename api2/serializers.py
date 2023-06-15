@@ -11,10 +11,17 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'username', 'email', 'is_staff']
 
 
-class PostSerializer(serializers.ModelSerializer):
+class PostListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ['id', 'title', 'image', 'like', 'category', ]
+
+
+class PostRetrieveSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        # fields = ['id', 'title', 'image', 'like', 'category', ]
+        exclude = ['create_dt']  # create_dt 이외의 모든 필드
 
 
 class CommentSerializer(serializers.ModelSerializer):
