@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
-from blog.models import Post
+from blog.models import Post, Comment
 from rest_framework import viewsets
 
-from api2.serializers import UserSerializer, PostSerializer
+from api2.serializers import UserSerializer, PostSerializer, CommentSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -15,3 +15,6 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
 
 
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
