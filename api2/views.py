@@ -64,4 +64,5 @@ class PostLikeAPIView(UpdateAPIView):
             # forcibly invalidate the prefetch cache on the instance.
             instance._prefetched_objects_cache = {}
 
-        return Response(serializer.data)
+        # return Response(serializer.data)
+        return Response(data['like'])
