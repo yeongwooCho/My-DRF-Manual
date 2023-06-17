@@ -48,6 +48,10 @@ class TagSerializer(serializers.ModelSerializer):
         fields = ['name', ]
 
 
+# class CateTagSerializer(serializers.Serializer):
+#     cateList = CategorySerializer(many=True)
+#     tagList = TagSerializer(many=True)
+
 class CateTagSerializer(serializers.Serializer):
-    cateList = CategorySerializer(many=True)
-    tagList = TagSerializer(many=True)
+    cateList = serializers.ListField(child=serializers.CharField())
+    tagList = serializers.ListField(child=serializers.CharField())
