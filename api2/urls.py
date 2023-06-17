@@ -28,4 +28,7 @@ urlpatterns = [
 
     # comments
     path('comments/', views.CommentCreateAPIView.as_view(), name='comments-list'),
+
+    # cate tag
+    path('catetag/', views.CateTagAPIView.as_view(), name='catetag'),
 ]
