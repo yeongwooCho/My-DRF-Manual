@@ -26,7 +26,8 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from api2.serializers import CommentSerializer, PostListSerializer, PostRetrieveSerializer, CateTagSerializer
+from api2.serializers import CommentSerializer, PostListSerializer, PostRetrieveSerializer, CateTagSerializer, \
+    PostSerializerDetail
 from blog.models import Post, Comment, Category, Tag
 
 
@@ -36,10 +37,10 @@ from blog.models import Post, Comment, Category, Tag
 #     serializer_class = PostListSerializer
 
 
-class PostRetrieveAPIView(RetrieveAPIView):
-    queryset = Post.objects.all()
-    # serializer many=False
-    serializer_class = PostRetrieveSerializer
+# class PostRetrieveAPIView(RetrieveAPIView):
+#     queryset = Post.objects.all()
+#     # serializer many=False
+#     serializer_class = PostRetrieveSerializer
 
 
 class CommentCreateAPIView(CreateAPIView):
@@ -125,3 +126,40 @@ class PostListAPIView(ListAPIView):
             'view': self
         }
 
+
+def get_previous_next(instance):
+    try:
+        prev = instance.get_previous_by_update_dt()
+    except instance.DoesNotExist:
+        prev = None
+
+    try:
+        # next는 예약어이기에 이름충돌을 막기위해 nextt 사용
+        next_ = instance.get_next_by_update_dt()
+    except instance.DoesNotExist:
+        next_ = None
+
+    return prev, next_
+
+
+class PostRetrieveAPIView(RetrieveAPIView):
+    queryset = Post.objects.all()
+    # serializer many=False
+    serializer_class = PostSerializerDetail
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+
+        prevInstance, nextInstance = get_previous_next(instance)
+        commentList = instance.comment_set.all()
+        # commentList = Comment.objects.filter(post_id=instance.id)
+
+        data = {
+            'post': instance,
+            'prevPost': prevInstance,
+            'nextPost': nextInstance,
+            'commentList': commentList,
+        }
+
+        serializer = self.get_serializer(data)
+        return Response(serializer.data)
