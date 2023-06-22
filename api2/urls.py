@@ -20,14 +20,22 @@ from api2 import views
 
 urlpatterns = [
     # posts
-    path('posts/', views.PostListAPIView.as_view(), name='post-list'),
-    path('posts/<int:pk>/', views.PostRetrieveAPIView.as_view(), name='post-detail'),
+    path('posts/', views.PostViewSet.as_view(actions={
+        'get': 'list'
+    }), name='post-list'),
+    path('posts/<int:pk>/', views.PostViewSet.as_view(actions={
+        'get': 'retrieve'
+    }), name='post-detail'),
     # like
     # path('posts/<int:pk>/like/', views.PostLikeUpdateAPIView.as_view(), name='post-detail'),
-    path('posts/<int:pk>/like/', views.PostLikeAPIView.as_view(), name='post-like'),
+    path('posts/<int:pk>/like/', views.PostViewSet.as_view(actions={
+        'get': 'like'
+    }), name='post-like'),
 
     # comments
-    path('comments/', views.CommentCreateAPIView.as_view(), name='comments-list'),
+    path('comments/', views.CommentViewSet.as_view(actions={
+        'post': 'create'
+    }), name='comments-list'),
 
     # cate tag
     path('catetag/', views.CateTagAPIView.as_view(), name='catetag'),
