@@ -163,3 +163,13 @@ class PostRetrieveAPIView(RetrieveAPIView):
 
         serializer = self.get_serializer(data)
         return Response(serializer.data)
+
+    def get_serializer_context(self):
+        """
+        Extra context provided to the serializer class.
+        """
+        return {
+            'request': None,
+            'format': self.format_kwarg,
+            'view': self
+        }

@@ -1,6 +1,7 @@
 # Serializers define the API representation.
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from rest_framework.relations import StringRelatedField
 
 from blog.models import Post, Comment, Category, Tag
 
@@ -20,6 +21,9 @@ class PostListSerializer(serializers.ModelSerializer):
 
 
 class PostRetrieveSerializer(serializers.ModelSerializer):
+    category = StringRelatedField()
+    tags = StringRelatedField(many=True)
+
     class Meta:
         model = Post
         # fields = ['id', 'title', 'image', 'like', 'category', ]
